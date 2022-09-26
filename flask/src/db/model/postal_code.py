@@ -19,4 +19,4 @@ class PostalCode:
             "created_at "
             "from postal_code where postal_code = :code"
         )
-        return self.conn.execute(sql, postal_code).fetchall()
+        return self.conn.execute(sql, {"code": postal_code}).fetchall()

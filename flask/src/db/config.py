@@ -9,5 +9,5 @@ host = os.getenv('HOST')
 port = os.getenv('PORT')
 database = os.getenv('DATABASE')
 
-URL = f'mysql://{user}:{password}@{host}:{port}/{database}'
+URL = f'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}'
 
