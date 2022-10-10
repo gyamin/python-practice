@@ -45,5 +45,26 @@ class PostalCode:
         :return:
         """
         sql = select(self.postalCode).where(self.postalCode.c.postal_code == postal_code)
+        print(str(sql))
         result = self.conn.execute(sql)
         return result
+
+    def search_address_by_prefectures(self, prefectures):
+        """
+        指定された都道府県のレコードを返す（あえて１都道府県ずつループしてDBからデータ取得して、配列にマージ）
+        :param prefectures:
+        :return:
+        """
+
+        for prefecture in prefectures:
+            sql = select(self.postalCode).where(self.postalCode.c.address_1 == prefecture)
+            rows = self.conn.execute(sql)
+
+            address = []
+            for row in rows:
+                buff = {}
+                for field in row._fields:
+                    buff[field] = row._mapping[field]
+                address.append(buff)
+
+        return address
